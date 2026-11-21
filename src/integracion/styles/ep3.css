@@ -1,0 +1,165 @@
+/* Ajustes compartidos de las nuevas vistas EP3 sobre la paleta y estructura del equipo. */
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #c32060;
+    --bs-btn-border-color: #c32060;
+    --bs-btn-hover-color: #120e1a;
+    --bs-btn-hover-bg: #ff7ab1;
+    --bs-btn-hover-border-color: #ff7ab1;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #a51850;
+}
+.foto-integracion {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-height: 125px;
+    object-fit: contain;
+    background: #f5f1fa;
+    border-radius: 5px;
+}
+.imagen-detalle.galeria-acercada {
+    object-fit: cover;
+    object-position: center;
+}
+.ficha-tecnica {
+    margin-top: 1.25rem;
+}
+.ficha-tecnica dl {
+    display: grid;
+    grid-template-columns: minmax(100px, 1fr) minmax(120px, 2fr);
+    gap: 0.4rem 1rem;
+}
+
+/* Medidas y tipografía de los componentes de integración. */
+.ep3-min-height-auto {
+    min-height: auto;
+}
+.ep3-max-width-460px {
+    max-width: 460px;
+}
+.ep3-height-40px-width-40px {
+    height: 40px;
+    width: 40px;
+}
+.ep3-display-block-height-auto {
+    display: block;
+    height: auto;
+}
+.ep3-flex-0-0-96px {
+    flex: 0 0 96px;
+}
+.ep3-flex-basis-200px-min-width-0 {
+    flex-basis: 200px;
+    min-width: 0;
+}
+.ep3-font-family-var-fuente-texto {
+    font-family: var(--fuente-texto);
+}
+.ep3-min-height-18px {
+    min-height: 18px;
+}
+.ep3-flex-0-0-130px {
+    flex: 0 0 130px;
+}
+.ep3-font-size-20px {
+    font-size: 20px;
+}
+.ep3-font-size-52px {
+    font-size: 52px;
+}
+.ep3-min-width-220px {
+    min-width: 220px;
+}
+.ep3-width-70px {
+    width: 70px;
+}
+.ep3-text-align-right-width-22px {
+    text-align: right;
+    width: 22px;
+}
+.ep3-white-space-normal {
+    white-space: normal;
+}
+.ep3-font-size-30px {
+    font-size: 30px;
+}
+.ep3-flex-1-1-200px {
+    flex: 1 1 200px;
+}
+.ep3-flex-1-1-240px {
+    flex: 1 1 240px;
+}
+.ep3-flex-0-1-220px {
+    flex: 0 1 220px;
+}
+.ep3-font-size-0-9375rem-padding-0-375rem-0-75rem {
+    font-size: 0.9375rem;
+    padding: 0.375rem 0.75rem;
+}
+.ep3-min-width-200px {
+    min-width: 200px;
+}
+.ep3-border-color-var-color-borde-control {
+    border-color: var(--color-borde-control);
+}
+.ep3-max-width-560px {
+    max-width: 560px;
+}
+.ep3-font-size-32px {
+    font-size: 32px;
+}
+.ep3-font-size-40px {
+    font-size: 40px;
+}
+.ep3-font-size-22px {
+    font-size: 22px;
+}
+.ep3-background-var-color-acento-height-2px-width-28px {
+    background: var(--color-acento);
+    height: 2px;
+    width: 28px;
+}
+.ep3-border-color-var-color-primario-color-var-color-primario-hover {
+    border-color: var(--color-primario);
+    color: var(--color-primario-hover);
+}
+.ep3-background-var-color-borde-height-2px-width-28px {
+    background: var(--color-borde);
+    height: 2px;
+    width: 28px;
+}
+.ep3-color-var-color-texto-secundario {
+    color: var(--color-texto-secundario);
+}
+.ep3-flex-0-0-64px {
+    flex: 0 0 64px;
+}
+.ep3-min-width-0 {
+    min-width: 0;
+}
+.ep3-font-size-28px {
+    font-size: 28px;
+}
+.ep3-max-width-880px {
+    max-width: 880px;
+}
+.ep3-border-radius-50-border-width-2px-height-72px-width-72px {
+    border-radius: 50%;
+    border-width: 2px;
+    height: 72px;
+    width: 72px;
+}
+.ep3-font-size-clamp-1-75rem-4vw-2-5rem {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+.ep3-background-var-color-fondo-border-1px-solid-var-color-borde {
+    background: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+}
+.ep3-flex-0-0-72px {
+    flex: 0 0 72px;
+}
+.ep3-font-size-24px {
+    font-size: 24px;
+}

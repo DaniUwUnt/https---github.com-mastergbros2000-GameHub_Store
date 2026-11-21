@@ -1,32 +1,37 @@
-# GameHub Store
+# GameHub Store Frontend EP3
 
-Proyecto frontend desarrollado para la asignatura Desarrollo FullStack II.
+Desarrollo Fullstack II · DSY1104  
+Equipo: Brayan Alarcón, Benjamín Bravo y Daniela Salinas.
 
-## Integrantes
+Continúa la versión `alpha_2.0.1` de la EP2. Mantiene su paleta violeta y fucsia, navegación pública, catálogo, imágenes locales, carrusel y video. React consulta el backend Spring Boot en vez de leer un catálogo simulado.
 
-- Brayan Alarcón
-- Benjamín Bravo
-- Daniela Salinas
+## Ejecutar
 
-## Versiones
+1. Inicie el backend (su README trae Docker/MySQL y una demo local con JDK 21).
+2. Use Node.js 22.12 o posterior compatible con el proyecto. Copie `.env.example` como `.env`. `VITE_API_URL` debe apuntar a la raíz del Gateway, por ejemplo `http://localhost:8080`, sin añadir `/api/v1`.
+3. Ejecute `npm ci` y `npm run dev -- --strictPort`. Abra [GameHub Store](http://localhost:5173).
+4. Las cuentas de demo y `CLAVE_DEMO` están descritas en el README del backend. No copie secretos a las variables `VITE_*`, porque son públicas. `VITE_WHATSAPP_NUMBER` permite configurar el número oficial del equipo; si está vacío, la ayuda abre Contacto.
 
-- `alpha_1.0.0`: primera versión del proyecto.
-- `alpha_1.1.0`: versión con nuevas funcionalidades.
-- `alpha_1.1.1`: versión corregida y organizada.
-- `alpha_1.2.0`: versión con nuevas funcionalidades de registro, blog y administracion.
-- `alpha_1.2.1`: versión con correcion de errores relacionados a las funcionalidades de registro.
-- `alpha_1.2.2`: versión con correciones menores relacionados a los botones en productos.
-- `alpha_2.0.1`: versión que incluye react con la gran mayoria de opciones funcionales.
+`npm run build` compila; `npm run lint` revisa el código; `npm test` corre Jasmine y Karma con Chrome instalado y genera `coverage/index.html`. Si Chrome no se encuentra, configure `CHROME_BIN` con la ruta al ejecutable instalado. `npm run format:check` comprueba el formato.
 
-## Versión actual
+Para desplegar el frontend fuera del equipo, deberá tener un Gateway HTTPS accesible y autorizar el origen de ese frontend en CORS. El Gateway local de la defensa no es accesible desde una URL pública.
 
-La versión más reciente es `alpha_2.0.1_React`.
+## Organización
 
-Para ejecutarla:
+- `src/App.jsx`: rutas, enlaces por rol y composición de la tienda.
+- `src/pages/Home.jsx` y `src/components/`: diseño original, catálogo, detalle, categorías, información.
+- `src/services/catalogoApi.js`: adapta el catálogo de la API al formato de tarjetas usado en EP2.
+- `src/integracion/services/`: HTTP centralizado, sesión y servicios por área.
+- `src/integracion/context/`: carrito y sesión persistidos en el navegador; renovación del JWT y cierre ante expiración.
+- `src/integracion/pages/`: acceso y registro, carrito, checkout, mis órdenes, consultas de vendedor y administración.
+- `src/tests/` y archivos `*.spec.js` de la integración: pruebas. Las fotos y el video están bajo `public/`.
 
-1. npm create vite@latest nombre-de-tu-proyecto -- --template react
-2. Selecciona la opción: JavaScript (moviéndote con las flechas del teclado y presionando Enter, evitando las opciones con TypeScript o SWC).
-3. Luego ingresa el comando: cd nombre-de-tu-proyecto para entrar a la carpeta recién creada.
-4. Después ingresa el comando: npm install para descargar todo el motor de React (aquí no debes seleccionar nada, solo esperar a que la barra de progreso termine).
-5. Finalmente, ingresa el comando: npm run dev para iniciar el servidor local y ver tu página en el navegador.
-6. Para cerrar el servidor, haz clic sobre la terminal y presiona las teclas Ctrl + C. Si te aparece un mensaje preguntando "¿Desea terminar el trabajo por lotes?", escribe la letra S y presiona Enter.
+Los estilos estáticos están en hojas CSS externas. Se conservan estilos en línea para valores que se calculan con los datos, como el ancho de las barras de reseñas o el color de los indicadores de estado.
+
+El carrito local guarda únicamente la intención de compra. El backend comprueba el precio, el cupón (sin descuento adicional sobre oferta), la disponibilidad y los permisos. El frontend muestra estados de carga, vacío y error. Un cliente solo consulta sus propias compras. Vendedor no ve edición ni gestión; administrador mantiene el catálogo y gestiona operaciones.
+
+El contacto es un formulario de demostración, no envía correo. El pago no usa tarjetas reales, y los comprobantes son académicos.
+
+## Procedencia
+
+Base del equipo: [GameHub Store EP2](https://github.com/mastergbros2000/https---github.com-mastergbros2000-GameHub_Store/tree/main/alpha_2.0.1), revisión `6871aa3`. Se conservaron sus componentes de la vitrina y se adaptaron pantallas, servicios y pruebas del [frontend de referencia de cacc92](https://github.com/cacc92/duoc-fullstack2-gamehub-frontend), revisión `e7fc59f`. El trabajo se documenta en los anexos EP3.
