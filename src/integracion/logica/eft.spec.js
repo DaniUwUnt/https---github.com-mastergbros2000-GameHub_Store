@@ -5,6 +5,22 @@ import { REGIONES, comunasDe } from '../data/regiones.js';
 import { precioFinal } from '../../services/productosService.js';
 
 describe('EFT · identidad chilena y límites del anexo', () => {
+    it('acepta omitir el umbral o poner cero y rechaza fracciones', () => {
+        const producto = {
+            sku: 'TEC',
+            nombre: 'Teclado',
+            marca: 'Demo',
+            categoriaId: '1',
+            precio: '0',
+            precioNormal: '',
+            stock: '0',
+        };
+        for (const limite of ['', '0', '3'])
+            expect(validarProducto({ ...producto, stockCritico: limite }, [{ id: 1 }])).toEqual({});
+        expect(
+            validarProducto({ ...producto, stockCritico: '1.5' }, [{ id: 1 }]).stockCritico,
+        ).toBeTruthy();
+    });
     const cuenta = {
         run: '123456785',
         nombre: 'Paz',

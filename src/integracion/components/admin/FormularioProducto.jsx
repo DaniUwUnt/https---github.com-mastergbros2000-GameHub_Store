@@ -34,6 +34,7 @@ function datosIniciales(producto, categorias) {
             precioNormal: '',
             ofertaHasta: '',
             stock: '0',
+            stockCritico: '',
             resumen: '',
             descripcion: '',
             ilustracion: ILUSTRACION_CATEGORIA[categorias[0]?.slug] ?? 'gpu',
@@ -51,6 +52,7 @@ function datosIniciales(producto, categorias) {
         precioNormal: producto.precioNormal == null ? '' : String(producto.precioNormal),
         ofertaHasta: producto.ofertaHasta ?? '',
         stock: String(producto.stock),
+        stockCritico: producto.stockCritico == null ? '' : String(producto.stockCritico),
         resumen: producto.resumen ?? '',
         descripcion: producto.descripcion ?? '',
         ilustracion: foto ? 'gpu' : (producto.imagen ?? 'gpu'),
@@ -110,6 +112,7 @@ export default function FormularioProducto({ producto, categorias, onGuardado, o
             precioNormal: datos.precioNormal === '' ? null : Number(datos.precioNormal),
             ofertaHasta: datos.precioNormal === '' ? null : datos.ofertaHasta || null,
             stock: Number(datos.stock || 0),
+            stockCritico: datos.stockCritico === '' ? null : Number(datos.stockCritico),
             resumen: datos.resumen.trim(),
             descripcion: datos.descripcion.trim(),
             imagen: url || datos.ilustracion,
@@ -214,6 +217,20 @@ export default function FormularioProducto({ producto, categorias, onGuardado, o
                             ? 'Se ajusta desde el panel del operador.'
                             : 'Después se ajusta desde el panel del operador.'
                     }
+                />
+                <Campo
+                    id="producto-stock-critico"
+                    tipo="number"
+                    className="col-md-4"
+                    etiqueta="Stock crítico"
+                    opcional
+                    min={0}
+                    step={1}
+                    valor={datos.stockCritico}
+                    alCambiar={cambiar('stockCritico')}
+                    error={ver('stockCritico')}
+                    onBlur={tocar('stockCritico')}
+                    ayuda="Avisa cuando quedan estas unidades o menos."
                 />
                 <Campo
                     className="col-md-4"

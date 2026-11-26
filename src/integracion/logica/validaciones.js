@@ -109,6 +109,12 @@ export function validarProducto(datos, categorias) {
     const precio = Number(datos.precio);
     const precioNormal = datos.precioNormal === '' ? null : Number(datos.precioNormal);
     return soloErrores({
+        stockCritico:
+            datos.stockCritico != null &&
+            datos.stockCritico !== '' &&
+            (!Number.isInteger(Number(datos.stockCritico)) || Number(datos.stockCritico) < 0)
+                ? 'Usa un umbral entero desde cero.'
+                : '',
         sku:
             datos.sku.trim().length >= 3 && datos.sku.trim().length <= 255
                 ? ''

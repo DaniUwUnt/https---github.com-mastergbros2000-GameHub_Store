@@ -159,6 +159,13 @@ export default function AdminProductos({ categorias, avisar, onCambio }) {
                                         <tr key={p.id}>
                                             <td>
                                                 <span className="fw-semibold">{p.nombre}</span>
+                                                {p.stockCritico != null &&
+                                                    p.stock <= p.stockCritico && (
+                                                        <span className="d-block small text-warning">
+                                                            Stock crítico: {p.stock} de un umbral de{' '}
+                                                            {p.stockCritico}
+                                                        </span>
+                                                    )}
                                                 <span className="d-block small texto-mono texto-secundario">
                                                     {p.sku}
                                                 </span>
