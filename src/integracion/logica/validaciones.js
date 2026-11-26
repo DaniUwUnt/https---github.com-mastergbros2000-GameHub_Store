@@ -115,10 +115,7 @@ export function validarProducto(datos, categorias) {
             (!Number.isInteger(Number(datos.stockCritico)) || Number(datos.stockCritico) < 0)
                 ? 'Usa un umbral entero desde cero.'
                 : '',
-        sku:
-            datos.sku.trim().length >= 3 && datos.sku.trim().length <= 255
-                ? ''
-                : 'El SKU admite entre 3 y 255 caracteres.',
+        sku: datos.sku.trim().length >= 3 ? '' : 'El SKU necesita al menos tres caracteres.',
         nombre:
             datos.nombre.trim() && datos.nombre.trim().length <= 100
                 ? ''
@@ -137,12 +134,12 @@ export function validarProducto(datos, categorias) {
         categoriaId: categorias.some((c) => String(c.id) === String(datos.categoriaId))
             ? ''
             : 'Elige una categoría que exista.',
-        precio: /^\d{1,9}(\.\d{1,2})?$/.test(String(datos.precio))
+        precio: /^\d+(\.\d{1,2})?$/.test(String(datos.precio))
             ? ''
             : 'Usa un precio desde cero y hasta dos decimales.',
         precioNormal:
             precioNormal === null ||
-            (/^\d{1,9}(\.\d{1,2})?$/.test(String(datos.precioNormal)) && precioNormal > precio)
+            (/^\d+(\.\d{1,2})?$/.test(String(datos.precioNormal)) && precioNormal > precio)
                 ? ''
                 : 'El precio normal debe ser mayor que el precio de oferta.',
     });

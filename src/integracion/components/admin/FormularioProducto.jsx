@@ -108,8 +108,8 @@ export default function FormularioProducto({ producto, categorias, onGuardado, o
             nombre: datos.nombre.trim(),
             marca: datos.marca.trim(),
             categoriaId: Number(datos.categoriaId),
-            precio: Number(datos.precio),
-            precioNormal: datos.precioNormal === '' ? null : Number(datos.precioNormal),
+            precio: String(datos.precio).trim(),
+            precioNormal: datos.precioNormal === '' ? null : String(datos.precioNormal).trim(),
             ofertaHasta: datos.precioNormal === '' ? null : datos.ofertaHasta || null,
             stock: Number(datos.stock || 0),
             stockCritico: datos.stockCritico === '' ? null : Number(datos.stockCritico),
@@ -171,7 +171,6 @@ export default function FormularioProducto({ producto, categorias, onGuardado, o
                     id="producto-sku"
                     etiqueta="SKU"
                     requerido
-                    maxLength={30}
                     valor={datos.sku}
                     alCambiar={cambiar('sku')}
                     error={ver('sku')}

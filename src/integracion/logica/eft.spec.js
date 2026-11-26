@@ -97,6 +97,9 @@ describe('EFT · identidad chilena y límites del anexo', () => {
         expect(validarProducto(p, cats)).toEqual({});
         expect(validarProducto({ ...p, precio: '1990.50' }, cats)).toEqual({});
         expect(
+            validarProducto({ ...p, sku: 'X'.repeat(420), precio: '1000000500.34' }, cats),
+        ).toEqual({});
+        expect(
             Object.keys(
                 validarProducto({ ...p, sku: 'AA', stock: '1.5', precio: '0.001' }, cats),
             ).sort(),
