@@ -272,7 +272,7 @@ function AppContent() {
                     {/^\d{8,15}$/.test(whatsapp ?? '') ? (
                         <a
                             className="boton-whatsapp"
-                            href={`https://wa.me/${whatsapp}?text=Hola%20GameHub%20Store`}
+                            href={`https://wa.me/${whatsapp}?text=Hola%20Level-Up%20Gamer`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >

@@ -32,7 +32,7 @@ const CARRITO = { lineas: [TECLADOS], cupon: GAME10 };
 const PERFIL = {
     id: 3,
     nombre: 'Camila Rojas',
-    email: 'camila@gamehub.test',
+    email: 'camila.levelup@duoc.cl',
     telefono: '912345678',
     region: 'Región Metropolitana de Santiago',
     comuna: 'Ñuñoa',
@@ -125,7 +125,7 @@ describe('pages/Checkout · vista completa', () => {
             'http://api.prueba/api/v1/usuarios/perfil',
         );
         expect(campo('nombre').value).toBe('Camila Rojas');
-        expect(campo('correo').value).toBe('camila@gamehub.test');
+        expect(campo('correo').value).toBe('camila.levelup@duoc.cl');
         expect(campo('comuna').value).toBe('Ñuñoa');
         expect(campo('direccion').value).toBe('Av. Los Aromos 1450, depto. 32');
         expect(botonPagar().disabled).toBeFalse();
@@ -150,7 +150,7 @@ describe('pages/Checkout · vista completa', () => {
             metodoPago: 'DEBITO',
             despacho: {
                 nombre: 'Camila Rojas',
-                correo: 'camila@gamehub.test',
+                correo: 'camila.levelup@duoc.cl',
                 telefono: '912345678',
                 region: 'Región Metropolitana de Santiago',
                 comuna: 'Ñuñoa',

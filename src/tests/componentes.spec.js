@@ -17,7 +17,7 @@ const productoOferta = {
     imagen: '/imagenes/notebook_asus_tuf.png',
 };
 
-describe('Componentes React de GameHub Store', () => {
+describe('Componentes React de Level-Up Gamer', () => {
     let contenedor;
     let raiz;
 

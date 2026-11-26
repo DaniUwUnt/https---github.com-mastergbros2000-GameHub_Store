@@ -1,0 +1,37 @@
+name: Verificar interfaz Level-Up
+on:
+  push:
+    branches: [eft-levelup]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint && npm run format:check && npm run build
+      - name: Jasmine y Karma en Chrome
+        run: npm test -- --browsers ChromeHeadlessCI
+      - name: Capturas de las pantallas públicas
+        run: |
+          npm run dev -- --host 127.0.0.1 > vite-ci.log 2>&1 &
+          servidor=$!
+          trap 'kill "$servidor" 2>/dev/null || true' EXIT
+          for i in {1..30}; do curl -fsS http://127.0.0.1:5173/ >/dev/null && break; sleep 1; done
+          mkdir -p capturas
+          for pagina in ingresar contacto blog; do google-chrome --headless --no-sandbox --hide-scrollbars --window-size=1320,900 --virtual-time-budget=3500 --screenshot="capturas/$pagina.png" "http://127.0.0.1:5173/$pagina"; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cobertura-frontend
+          path: |
+            coverage/
+            capturas/

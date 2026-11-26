@@ -7,7 +7,7 @@ import AuthProvider from './AuthProvider.jsx';
 import { useAuth } from './useAuth.js';
 
 const MINUTO = 60 * 1000;
-const USUARIO = { id: 3, nombre: 'Camila Rojas', email: 'camila@gamehub.test', rol: 'CLIENTE' };
+const USUARIO = { id: 3, nombre: 'Camila Rojas', email: 'camila.levelup@duoc.cl', rol: 'CLIENTE' };
 
 // Un JWT de prueba: solo importa el payload (iat y exp, en segundos); la firma la verifica el backend
 function token(iat, exp) {

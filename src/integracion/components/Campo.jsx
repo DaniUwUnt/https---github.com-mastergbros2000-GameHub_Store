@@ -22,6 +22,7 @@ export default function Campo({
     const props = {
         id,
         name: id,
+        required: requerido,
         value: valor,
         onChange: (e) => alCambiar?.(e.target.value),
         'aria-invalid': error ? 'true' : undefined,

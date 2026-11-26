@@ -20,6 +20,12 @@ export default function ProductCard({ producto, agregar, soloLectura = false }) 
                     </>
                 )}
             </div>
+            {!Number.isInteger(precioFinal(producto)) && (
+                <small>
+                    Al carrito: {Math.round(precioFinal(producto)).toLocaleString('es-CL')} pesos
+                    por unidad.
+                </small>
+            )}
             <p className="precio">${precioFinal(producto).toLocaleString('es-CL')}</p>
             <p>
                 {producto.stock > 0 ? `Stock disponible: ${producto.stock}` : 'Producto sin stock'}

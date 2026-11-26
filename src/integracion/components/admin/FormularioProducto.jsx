@@ -201,6 +201,8 @@ export default function FormularioProducto({ producto, categorias, onGuardado, o
                 <Campo
                     className="col-md-4"
                     id="producto-stock"
+                    error={ver('stock')}
+                    onBlur={tocar('stock')}
                     tipo="number"
                     etiqueta={editando ? 'Stock' : 'Stock inicial'}
                     min={0}
@@ -219,13 +221,14 @@ export default function FormularioProducto({ producto, categorias, onGuardado, o
                     tipo="number"
                     etiqueta="Precio (CLP)"
                     requerido
-                    min={1}
-                    inputMode="numeric"
+                    min={0}
+                    step="0.01"
+                    inputMode="decimal"
                     valor={datos.precio}
                     alCambiar={cambiar('precio')}
                     error={ver('precio')}
                     onBlur={tocar('precio')}
-                    ayuda="El precio debe ser mayor que cero."
+                    ayuda="Puedes poner cero (gratis) o hasta dos decimales. Al agregar al carrito se redondea al peso."
                 />
                 <Campo
                     className="col-md-4"
@@ -233,8 +236,9 @@ export default function FormularioProducto({ producto, categorias, onGuardado, o
                     tipo="number"
                     etiqueta="Precio normal"
                     opcional
-                    min={1}
-                    inputMode="numeric"
+                    min={0}
+                    step="0.01"
+                    inputMode="decimal"
                     valor={datos.precioNormal}
                     alCambiar={cambiar('precioNormal')}
                     error={ver('precioNormal')}
@@ -265,10 +269,12 @@ export default function FormularioProducto({ producto, categorias, onGuardado, o
                 <Campo
                     className="col-12"
                     id="producto-descripcion"
+                    maxLength={500}
+                    error={ver('descripcion')}
+                    onBlur={tocar('descripcion')}
                     como="textarea"
                     etiqueta="Descripción"
                     opcional
-                    maxLength={2000}
                     valor={datos.descripcion}
                     alCambiar={cambiar('descripcion')}
                 />

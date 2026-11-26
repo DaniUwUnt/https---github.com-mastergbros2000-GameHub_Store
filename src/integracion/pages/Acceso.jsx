@@ -137,6 +137,9 @@ function FormularioLogin({ onIngresar }) {
 }
 
 const REGISTRO_VACIO = {
+    run: '',
+    apellidos: '',
+    nacimiento: '',
     nombre: '',
     email: '',
     telefono: '',
@@ -148,7 +151,8 @@ const REGISTRO_VACIO = {
     terminos: false,
 };
 
-function FormularioRegistro({ onIngresar }) {
+export function FormularioRegistro({ onIngresar, crearComoAdmin }) {
+    const [rol, setRol] = useState('CLIENTE');
     const [datos, setDatos] = useState(REGISTRO_VACIO);
     const [tocados, setTocados] = useState({});
     const [enviando, setEnviando] = useState(false);
@@ -185,6 +189,9 @@ function FormularioRegistro({ onIngresar }) {
             // La confirmación y los términos se validan aquí; al backend solo viaja lo que guarda
             const cuerpo = {
                 nombre: datos.nombre.trim(),
+                run: datos.run.trim().toUpperCase(),
+                apellidos: datos.apellidos.trim(),
+                nacimiento: datos.nacimiento || null,
                 email: datos.email.trim(),
                 clave: datos.clave,
                 telefono: datos.telefono,
@@ -192,12 +199,18 @@ function FormularioRegistro({ onIngresar }) {
                 comuna: datos.comuna,
                 direccion: datos.direccion.trim(),
             };
-            onIngresar(await registrar(cuerpo));
+            if (crearComoAdmin) {
+                await crearComoAdmin(cuerpo, rol);
+                setDatos(REGISTRO_VACIO);
+                setTocados({});
+                setRol('CLIENTE');
+            } else onIngresar(await registrar(cuerpo));
         } catch (err) {
             // 409: el correo ya existe; 400: el backend devuelve el mensaje de cada campo
             if (err.estado === 409) {
-                setErroresServidor({ email: err.message });
-                setTocados((t) => ({ ...t, email: true }));
+                const campo = err.message.includes('RUN') ? 'run' : 'email';
+                setErroresServidor({ [campo]: err.message });
+                setTocados((t) => ({ ...t, [campo]: true }));
             } else if (Object.keys(err.errores ?? {}).length) {
                 setErroresServidor(err.errores);
                 setTocados((t) => ({
@@ -225,14 +238,62 @@ function FormularioRegistro({ onIngresar }) {
             onSubmit={enviar}
             noValidate
             className="d-flex flex-column gap-3"
-            aria-labelledby="titulo-registro"
+            aria-labelledby={crearComoAdmin ? 'titulo-alta' : 'titulo-registro'}
         >
             <MensajeError error={error} />
+            {crearComoAdmin && (
+                <Campo
+                    id="rol-inicial"
+                    etiqueta="Rol de la nueva cuenta"
+                    requerido
+                    como="select"
+                    valor={rol}
+                    alCambiar={setRol}
+                    opciones={Object.entries(NOMBRE_ROL).map(([valor, texto]) => ({
+                        valor,
+                        texto,
+                    }))}
+                />
+            )}
+            <Campo
+                id="registro-run"
+                etiqueta="RUN"
+                requerido
+                ayuda="Sin puntos ni guion. Ejemplo de formato: 123456785."
+                maxLength={9}
+                valor={datos.run}
+                alCambiar={cambiar('run')}
+                onBlur={tocar('run')}
+                error={mostrar('run')}
+            />
+            <Campo
+                id="registro-apellidos"
+                etiqueta="Apellidos"
+                autoComplete="family-name"
+                maxLength={100}
+                requerido
+                valor={datos.apellidos}
+                alCambiar={cambiar('apellidos')}
+                onBlur={tocar('apellidos')}
+                error={mostrar('apellidos')}
+            />
+            <Campo
+                id="registro-nacimiento"
+                etiqueta="Fecha de nacimiento"
+                opcional
+                tipo="date"
+                autoComplete="bday"
+                valor={datos.nacimiento}
+                alCambiar={cambiar('nacimiento')}
+                onBlur={tocar('nacimiento')}
+                error={mostrar('nacimiento')}
+            />
             <Campo
                 id="registro-nombre"
-                etiqueta="Nombre completo"
+                etiqueta="Nombre"
                 requerido
-                autoComplete="name"
+                autoComplete="given-name"
+                maxLength={50}
                 valor={datos.nombre}
                 alCambiar={cambiar('nombre')}
                 onBlur={tocar('nombre')}
@@ -277,7 +338,7 @@ function FormularioRegistro({ onIngresar }) {
                         alCambiar={cambiar('clave')}
                         onBlur={tocar('clave')}
                         error={mostrar('clave')}
-                        ayuda="8 caracteres o más, con al menos un número."
+                        ayuda="De 8 a 10 caracteres, con al menos un número."
                     />
                 </div>
                 <div className="col-md-6">

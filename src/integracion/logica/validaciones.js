@@ -1,5 +1,6 @@
 // Validaciones de los formularios. Cada función devuelve '' si el valor sirve, o el mensaje que se
 // muestra junto al campo. Las validarX(datos) devuelven un objeto { campo: mensaje } solo con los errores.
+import { validarCorreoCuenta, validarRun } from './identidad.js';
 import { regionPorNombre } from '../data/regiones.js';
 import { aFechaISO } from './formato.js';
 
@@ -21,6 +22,7 @@ export function validarTelefono(valor = '') {
 
 export function validarClave(valor = '') {
     if (valor.length < 8) return 'La contraseña debe tener al menos 8 caracteres.';
+    if (valor.length > 10) return 'La contraseña admite hasta 10 caracteres.';
     if (!/\d/.test(valor)) return 'La contraseña debe incluir al menos un número.';
     return '';
 }
@@ -30,6 +32,7 @@ export function validarNombre(valor = '') {
 }
 
 export function validarDireccion(valor = '') {
+    if (valor.trim().length > 300) return 'La dirección admite hasta 300 caracteres.';
     return valor.trim().length >= 5 ? '' : 'Escribe la dirección de despacho: calle y número.';
 }
 
@@ -59,16 +62,32 @@ export function validarDespacho(datos) {
 
 export function validarLogin(datos) {
     return soloErrores({
-        email: validarCorreo(datos.email),
-        clave: datos.clave ? '' : 'Escribe tu contraseña.',
+        email: validarCorreoCuenta(datos.email),
+        clave: !datos.clave
+            ? 'Escribe tu contraseña.'
+            : datos.clave.length < 4 || datos.clave.length > 10
+              ? 'Usa entre 4 y 10 caracteres.'
+              : '',
     });
 }
 
 // Registro: además revisa que las dos contraseñas coincidan y que se acepten los términos
 export function validarRegistro(datos) {
     return soloErrores({
-        nombre: validarNombre(datos.nombre),
-        email: validarCorreo(datos.email),
+        run: validarRun(datos.run),
+        nombre:
+            datos.nombre?.trim() && datos.nombre.trim().length <= 50
+                ? ''
+                : 'Escribe un nombre de hasta 50 caracteres.',
+        apellidos:
+            datos.apellidos?.trim() && datos.apellidos.trim().length <= 100
+                ? ''
+                : 'Escribe tus apellidos (hasta 100 caracteres).',
+        nacimiento:
+            datos.nacimiento && datos.nacimiento > aFechaISO()
+                ? 'La fecha no puede estar en el futuro.'
+                : '',
+        email: validarCorreoCuenta(datos.email),
         telefono: validarTelefono(datos.telefono),
         clave: validarClave(datos.clave),
         confirmacion: datos.confirmacion === datos.clave ? '' : 'Las contraseñas no coinciden.',
@@ -90,15 +109,34 @@ export function validarProducto(datos, categorias) {
     const precio = Number(datos.precio);
     const precioNormal = datos.precioNormal === '' ? null : Number(datos.precioNormal);
     return soloErrores({
-        sku: datos.sku.trim() ? '' : 'Escribe el SKU.',
-        nombre: datos.nombre.trim() ? '' : 'Escribe el nombre del producto.',
+        sku:
+            datos.sku.trim().length >= 3 && datos.sku.trim().length <= 255
+                ? ''
+                : 'El SKU admite entre 3 y 255 caracteres.',
+        nombre:
+            datos.nombre.trim() && datos.nombre.trim().length <= 100
+                ? ''
+                : 'Escribe un nombre de hasta 100 caracteres.',
+        descripcion:
+            (datos.descripcion ?? '').trim().length <= 500
+                ? ''
+                : 'La descripción admite hasta 500 caracteres.',
+        stock:
+            datos.stock === '' ||
+            (datos.stock !== undefined &&
+                (!Number.isInteger(Number(datos.stock)) || Number(datos.stock) < 0))
+                ? 'Escribe un stock entero, igual o mayor que cero.'
+                : '',
         marca: datos.marca.trim() ? '' : 'Escribe la marca.',
         categoriaId: categorias.some((c) => String(c.id) === String(datos.categoriaId))
             ? ''
             : 'Elige una categoría que exista.',
-        precio: precio > 0 ? '' : 'El precio debe ser mayor que cero.',
+        precio: /^\d{1,9}(\.\d{1,2})?$/.test(String(datos.precio))
+            ? ''
+            : 'Usa un precio desde cero y hasta dos decimales.',
         precioNormal:
-            precioNormal === null || precioNormal > precio
+            precioNormal === null ||
+            (/^\d{1,9}(\.\d{1,2})?$/.test(String(datos.precioNormal)) && precioNormal > precio)
                 ? ''
                 : 'El precio normal debe ser mayor que el precio de oferta.',
     });

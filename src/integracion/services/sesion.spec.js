@@ -25,7 +25,7 @@ function token(payload) {
 }
 
 const AHORA = Date.UTC(2026, 10, 10, 12, 0, 0);
-const USUARIO = { id: 3, nombre: 'Camila Rojas', email: 'camila@gamehub.test', rol: 'CLIENTE' };
+const USUARIO = { id: 3, nombre: 'Camila Rojas', email: 'camila.levelup@duoc.cl', rol: 'CLIENTE' };
 
 describe('services/sesion.js', () => {
     it('lee una sesión vigente y calcula cuándo vence el token', () => {

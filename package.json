@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "oxlint",
+    "lint": "oxlint src",
     "preview": "vite preview",
     "test": "karma start karma.conf.cjs",
     "test:watch": "karma start karma.conf.cjs --no-single-run --auto-watch",

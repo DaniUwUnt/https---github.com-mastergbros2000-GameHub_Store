@@ -36,7 +36,7 @@ export default function Header({ cantidad, usuario, cerrarSesion }) {
                         className="marca"
                         onClick={() => setAbierto(false)}
                     >
-                        GameHub <span>Store</span>
+                        Level-Up <span>Gamer</span>
                     </Navbar.Brand>
                     <Navbar.Toggle
                         aria-controls="menu-principal"

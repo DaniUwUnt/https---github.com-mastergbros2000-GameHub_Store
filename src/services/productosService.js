@@ -12,7 +12,7 @@ export function eliminarProducto(productos, id) {
 }
 
 export function precioFinal(producto) {
-    if (Number.isInteger(producto.precioVigente)) return producto.precioVigente;
+    if (Number.isFinite(producto.precioVigente)) return producto.precioVigente;
     return Math.round(producto.precio * (1 - (producto.descuento || 0) / 100));
 }
 

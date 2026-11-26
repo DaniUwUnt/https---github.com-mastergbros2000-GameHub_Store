@@ -1,3 +1,6 @@
+import { FormularioRegistro } from './Acceso.jsx';
+import { solicitar } from '../services/api.js';
+import AdminMensajes from '../components/admin/AdminMensajes.jsx';
 import { useCallback, useState } from 'react';
 import AdminCategorias from '../components/admin/AdminCategorias.jsx';
 import AdminProductos from '../components/admin/AdminProductos.jsx';
@@ -11,6 +14,7 @@ import { useCarga } from '../hooks/useCarga.js';
 import { listarCategoriasAdmin, listarResenasAdmin } from '../services/admin.js';
 
 const SECCIONES = [
+    { id: 'contacto', nombre: 'Consultas de contacto', icono: 'mensaje' },
     { id: 'productos', nombre: 'Productos', icono: 'cuadricula' },
     { id: 'categorias', nombre: 'Categorías', icono: 'capas' },
     { id: 'promociones', nombre: 'Promociones', icono: 'etiqueta' },
@@ -22,6 +26,7 @@ const SECCIONES = [
 // responde 403 a cualquier otro rol que llame a /api/v1/admin.
 export default function PanelAdmin() {
     const { usuario } = useAuth();
+    const [altas, setAltas] = useState(0);
     const categorias = useCarga(() => listarCategoriasAdmin(), []);
     const pendientes = useCarga(() => listarResenasAdmin('PENDIENTE'), []);
     const [aviso, setAviso] = useState(null);
@@ -123,6 +128,10 @@ export default function PanelAdmin() {
                         />
                     </section>
 
+                    <section id="contacto" className="d-flex flex-column gap-3 seccion-panel">
+                        <h2 className="h3">Consultas de contacto</h2>
+                        <AdminMensajes />
+                    </section>
                     <section
                         id="usuarios"
                         aria-labelledby="titulo-usuarios"
@@ -131,7 +140,20 @@ export default function PanelAdmin() {
                         <h2 id="titulo-usuarios" className="h3 m-0">
                             Usuarios
                         </h2>
-                        <AdminUsuarios yo={usuario} avisar={setAviso} />
+                        <details className="tarjeta p-3">
+                            <summary id="titulo-alta">Crear cuenta con rol</summary>
+                            <FormularioRegistro
+                                crearComoAdmin={async (cuenta, rol) => {
+                                    await solicitar('/api/v1/admin/usuarios', {
+                                        metodo: 'POST',
+                                        cuerpo: { cuenta, rol },
+                                    });
+                                    setAltas((n) => n + 1);
+                                    setAviso({ tipo: 'exito', texto: 'Cuenta creada.' });
+                                }}
+                            />
+                        </details>
+                        <AdminUsuarios key={altas} yo={usuario} avisar={setAviso} />
                     </section>
                 </div>
             </div>

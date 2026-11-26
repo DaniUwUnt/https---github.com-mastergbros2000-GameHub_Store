@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
         <footer className="pie">
-            <p>GameHub Store - Evaluación Parcial 3</p>
+            <p>Level-Up Gamer · Tienda de tecnología y videojuegos</p>
             <p>Proyecto académico desarrollado con React y Bootstrap.</p>
         </footer>
     );

@@ -39,7 +39,7 @@ function crearLinea(producto, cantidad) {
         marca: producto.marca,
         sku: producto.sku,
         imagen: producto.imagen,
-        precio: producto.precio,
+        precio: Math.round(producto.precio),
         precioNormal: producto.precioNormal ?? null,
         stock: producto.stock,
         cantidad,
@@ -59,7 +59,7 @@ export function agregarAlCarrito(lineas, producto, cantidad = 1) {
                   ? {
                         ...l,
                         cantidad: nuevaCantidad,
-                        precio: producto.precio,
+                        precio: Math.round(producto.precio),
                         precioNormal: producto.precioNormal ?? null,
                         stock: producto.stock,
                     }

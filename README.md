@@ -1,4 +1,14 @@
-# GameHub Store Frontend EP3
+# Level-Up Gamer · Evaluación final transversal (DSY1104)
+
+Frontend React del caso Level-Up Gamer. Continúa el proyecto GameHub de la EV3. La rama de la entrega es **eft-levelup**. Backend: https://github.com/DaniUwUnt/GameHub-Store-Backend/tree/eft-levelup.
+
+**Primera ejecución en Windows:** extrae ambos ZIP en carpetas nuevas. Inicia el backend; cuando responda el catálogo en http://localhost:8080/api/v1/productos, abre **INICIAR_FRONTEND.cmd** junto a este archivo. El enlace de Vite suele ser http://localhost:5173. Requiere Node 22.12+ o 24 y acceso a npm la primera vez.
+
+**Defensa:** con la API encendida, muestra una categoría temporal, un pedido y una consulta de contacto. El registro público asigna CLIENTE; Administración puede dar de alta otras cuentas y gestionar sus roles. El RUN utiliza módulo 11. El catálogo conserva centésimas; al añadir al carrito se cobra al peso más cercano por unidad. Las simulaciones de pago no procesan dinero.
+
+**Validación:** \`npm ci\`, \`npm run lint\`, \`npm run build\`, \`npm test\` (Chrome instalado). La cobertura del código cargado por los tests se guarda en \`coverage/\`. No hay credenciales privadas en el frontend.
+
+---
 
 Desarrollo Fullstack II · DSY1104  
 Equipo: Brayan Alarcón, Benjamín Bravo y Daniela Salinas.
@@ -9,7 +19,7 @@ Continúa la versión `alpha_2.0.1` de la EP2. Mantiene su paleta violeta y fucs
 
 1. Inicie el backend (su README trae Docker/MySQL y una demo local con JDK 21).
 2. Use Node.js 22.12 o posterior compatible con el proyecto. Copie `.env.example` como `.env`. `VITE_API_URL` debe apuntar a la raíz del Gateway, por ejemplo `http://localhost:8080`, sin añadir `/api/v1`.
-3. Ejecute `npm ci` y `npm run dev -- --strictPort`. Abra [GameHub Store](http://localhost:5173).
+3. Ejecute `npm ci` y `npm run dev -- --strictPort`. Abra [Level-Up Gamer](http://localhost:5173).
 4. Las cuentas de demo y `CLAVE_DEMO` están descritas en el README del backend. No copie secretos a las variables `VITE_*`, porque son públicas. `VITE_WHATSAPP_NUMBER` permite configurar el número oficial del equipo; si está vacío, la ayuda abre Contacto.
 
 `npm run build` compila; `npm run lint` revisa el código; `npm test` corre Jasmine y Karma con Chrome instalado y genera `coverage/index.html`. Si Chrome no se encuentra, configure `CHROME_BIN` con la ruta al ejecutable instalado. `npm run format:check` comprueba el formato.
@@ -34,4 +44,4 @@ El contacto es un formulario de demostración, no envía correo. El pago no usa 
 
 ## Procedencia
 
-Base del equipo: [GameHub Store EP2](https://github.com/mastergbros2000/https---github.com-mastergbros2000-GameHub_Store/tree/main/alpha_2.0.1), revisión `6871aa3`. Se conservaron sus componentes de la vitrina y se adaptaron pantallas, servicios y pruebas del [frontend de referencia de cacc92](https://github.com/cacc92/duoc-fullstack2-gamehub-frontend), revisión `e7fc59f`. El trabajo se documenta en los anexos EP3.
+Base del equipo: [Level-Up Gamer EP2](https://github.com/mastergbros2000/https---github.com-mastergbros2000-GameHub_Store/tree/main/alpha_2.0.1), revisión `6871aa3`. Se conservaron sus componentes de la vitrina y se adaptaron pantallas, servicios y pruebas del [frontend de referencia de cacc92](https://github.com/cacc92/duoc-fullstack2-gamehub-frontend), revisión `e7fc59f`. El trabajo se documenta en los anexos EP3.

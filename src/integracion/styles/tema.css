@@ -307,3 +307,13 @@ textarea.form-control {
 .spinner-border {
     color: var(--color-primario);
 }
+
+.foto-editorial {
+    width: 100%;
+    height: clamp(150px, 24vw, 240px);
+    object-fit: contain;
+    background: var(--color-texto, #f3effa);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 1rem;
+}

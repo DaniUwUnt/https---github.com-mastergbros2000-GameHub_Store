@@ -106,12 +106,14 @@ describe('logica/validaciones.js · cuenta, catálogo y administración', () => 
             email: 'Escribe tu correo.',
             clave: 'Escribe tu contraseña.',
         });
-        expect(validarLogin({ email: 'camila@gamehub.test', clave: 'algo' })).toEqual({});
+        expect(validarLogin({ email: 'camila.levelup@duoc.cl', clave: 'algo' })).toEqual({});
     });
 
     it('validarRegistro revisa el correo, la contraseña, la confirmación y los términos', () => {
         const errores = validarRegistro({
             nombre: 'Camila Rojas',
+            run: '123456785',
+            apellidos: 'Rojas',
             email: 'camila@',
             telefono: '912345678',
             clave: 'sinnumeros',
@@ -151,9 +153,9 @@ describe('logica/validaciones.js · cuenta, catálogo y administración', () => 
         };
 
         expect(validarProducto(base, categorias)).toEqual({});
-        expect(validarProducto({ ...base, categoriaId: '99', precio: '0' }, categorias)).toEqual({
+        expect(validarProducto({ ...base, categoriaId: '99', precio: '-1' }, categorias)).toEqual({
             categoriaId: 'Elige una categoría que exista.',
-            precio: 'El precio debe ser mayor que cero.',
+            precio: 'Usa un precio desde cero y hasta dos decimales.',
         });
         expect(validarProducto({ ...base, precioNormal: '50000' }, categorias).precioNormal).toBe(
             'El precio normal debe ser mayor que el precio de oferta.',

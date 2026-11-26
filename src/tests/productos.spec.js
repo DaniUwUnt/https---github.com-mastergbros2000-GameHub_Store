@@ -7,7 +7,7 @@ import {
     precioFinal,
 } from '../services/productosService.js';
 
-describe('Productos GameHub Store', () => {
+describe('Productos Level-Up Gamer', () => {
     it('calcula un precio con descuento', () => {
         expect(precioFinal({ precio: 10000, descuento: 20 })).toBe(8000);
     });
